@@ -92,6 +92,7 @@ public class PinpointProfiler extends TruffleInstrument {
         int cnt =0;
         @Override
         public void onEnter(EventContext context, VirtualFrame frame) {
+            System.out.println("onEnter myListener1");
         }
 
         @Override
@@ -99,28 +100,61 @@ public class PinpointProfiler extends TruffleInstrument {
 
             cnt++;
 
-            if ("func1".equals(context.getInstrumentedNode().getRootNode().getName())) {
-
-                CompilerDirectives.transferToInterpreter();
-                // notify the runtime that we will change the current execution flow
-                System.out.println("this is it!@@@@");
-                System.out.println("cnt : " + cnt);
-                throw context.createUnwind(null);
-            }
+            System.out.println(context.getInstrumentedSourceSection());
+            CompilerDirectives.transferToInterpreter();
+            // notify the runtime that we will change the current execution flow
+            System.out.println("this is it!@@@@");
+            System.out.println("cnt : " + cnt);
+            throw context.createUnwind(null);
         }
 
         @Override
         public void onReturnExceptional(EventContext context, VirtualFrame frame, Throwable exception) {
+            System.out.println("onReturnExceptional myListener1");
 
         }
 
         @Override
         public Object onUnwind(EventContext context, VirtualFrame frame, Object info) {
             // just return 42 as the return value for this node
-            return 42;
+            return "instrumented by 1 ";
         }
     };
 
+
+    ExecutionEventListener myListener2 = new ExecutionEventListener() {
+
+        int cnt =0;
+        @Override
+        public void onEnter(EventContext context, VirtualFrame frame) {
+            System.out.println("onEnter myListener2");
+        }
+
+        @Override
+        public void onReturnValue(EventContext context, VirtualFrame frame, Object result) {
+
+            cnt++;
+
+            System.out.println(context.getInstrumentedSourceSection().getSource());
+            CompilerDirectives.transferToInterpreter();
+            // notify the runtime that we will change the current execution flow
+            System.out.println("this is it!@@@@");
+            System.out.println("cnt : " + cnt);
+            throw context.createUnwind(null);
+        }
+
+        @Override
+        public void onReturnExceptional(EventContext context, VirtualFrame frame, Throwable exception) {
+            System.out.println("onReturnExceptional myListener2");
+
+        }
+
+        @Override
+        public Object onUnwind(EventContext context, VirtualFrame frame, Object info) {
+            // just return 42 as the return value for this node
+            return "instrumented by 2";
+        }
+    };
 
     @Override
     protected void onCreate(Env env) {
@@ -129,9 +163,22 @@ public class PinpointProfiler extends TruffleInstrument {
 
 //        Predicate<String> fucn1Name = s -> s.equals("func2");
 
+//        Source source = new Source()
+
         SourceSectionFilter sourceSectionFilter = SourceSectionFilter.newBuilder()
                 .tagIs(StandardTags.RootTag.class)
-//                .rootNameIs(s -> s.equals("func1"))
+                .rootNameIs(s -> s != null && s.equals("func1"))
+                .includeInternal(false)
+                .sourceIs()
+//                .sourceIs(Source)
+                .build();
+
+//        System.out.println("sourceSectionFilter : " + sourceSectionFilter);
+//        System.out.println(env.getInstrumenter().getClass());
+
+        SourceSectionFilter sourceSectionFilter2 = SourceSectionFilter.newBuilder()
+                .tagIs(StandardTags.RootTag.class)
+                .rootNameIs(s -> s != null && s.equals("func3"))
                 .includeInternal(false)
                 .build();
 
@@ -139,6 +186,10 @@ public class PinpointProfiler extends TruffleInstrument {
 //        System.out.println(env.getInstrumenter().getClass());
 
         env.getInstrumenter().attachExecutionEventListener(sourceSectionFilter, myListener);
+
+        env.getInstrumenter().attachExecutionEventListener(sourceSectionFilter2, myListener2);
+
+
 //        for (Class<? extends ProfilerFrontEnd> frontEnd : installedFrontEnds) {
 //            try {
 //                System.out.println("@@@@@@@@@@@ " + frontEnd.getDeclaredConstructor());
