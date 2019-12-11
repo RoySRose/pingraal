@@ -1,0 +1,5 @@
+com/navercorp/pinpoint/common/buffer/OffsetFixedBuffer.class
+com/navercorp/pinpoint/common/buffer/Buffer.class
+com/navercorp/pinpoint/common/buffer/OffsetAutomaticBuffer.class
+com/navercorp/pinpoint/common/buffer/AutomaticBuffer.class
+com/navercorp/pinpoint/common/buffer/FixedBuffer.class

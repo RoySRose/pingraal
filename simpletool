@@ -15,7 +15,7 @@ shift
 
 "$GRAALVM_HOME/bin/$LAUNCHER" \
     --jvm \
-    --vm.Dtruffle.class.path.append=target/pingraal-0.0.1.jar \
+    --vm.Dtruffle.class.path.append=graalvm/target/pinpoint-graal-agent-0.0.1-jar-with-dependencies.jar \
     --pinpoint-profiler \
     "$@"
 

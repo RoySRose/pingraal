@@ -1,0 +1,16 @@
+com/navercorp/pinpoint/common/profiler/concurrent/PinpointThreadFactoryTest.class
+com/navercorp/pinpoint/common/profiler/trace/TraceMetadataLoaderTest$1.class
+com/navercorp/pinpoint/common/profiler/util/ApplicationMapStatisticsUtilsTest.class
+com/navercorp/pinpoint/common/profiler/concurrent/PinpointThreadFactoryTest$1.class
+com/navercorp/pinpoint/common/profiler/trace/TraceMetadataRegistrarTest.class
+com/navercorp/pinpoint/common/profiler/sql/OutputParameterParserTest.class
+com/navercorp/pinpoint/common/profiler/trace/StaticFieldLookUpTestClass.class
+com/navercorp/pinpoint/common/profiler/trace/ServiceTypeInitializerTest.class
+com/navercorp/pinpoint/common/profiler/trace/TraceMetadataLoaderTest.class
+com/navercorp/pinpoint/common/profiler/sql/DefaultSqlParserTest.class
+com/navercorp/pinpoint/common/profiler/encoding/BitFieldUtilsTest.class
+com/navercorp/pinpoint/common/profiler/trace/StaticFieldLookUpTest.class
+com/navercorp/pinpoint/common/profiler/util/TransactionIdTest.class
+com/navercorp/pinpoint/common/profiler/util/TransactionIdUtilsTest.class
+com/navercorp/pinpoint/common/profiler/trace/ServiceTypeInitializerTest$TestProvider.class
+com/navercorp/pinpoint/common/profiler/concurrent/PinpointThreadFactoryTest$2.class
